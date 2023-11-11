@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
-import { useStoreModal } from "@/hooks/use-store-modal";
+import { useModal } from "@/hooks/use-modal-store";
 import {
   Check,
   ChevronsUpDown,
@@ -40,7 +40,7 @@ export const StoreSwitcher = ({
   className,
   items = [],
 }: StoreSwitcherProps) => {
-  const storeModal = useStoreModal();
+  const storeModal = useModal();
   const params = useParams();
   const router = useRouter();
 
@@ -106,7 +106,7 @@ export const StoreSwitcher = ({
               <CommandItem
                 onSelect={() => {
                   setOpen(false);
-                  storeModal.onOpen();
+                  storeModal.onOpen("createStore");
                 }}
                 className="cursor-pointer">
                 <PlusCircle className="h-5 w-5 mr-2" />

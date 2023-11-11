@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 
-import { useStoreModal } from "@/hooks/use-store-modal";
+import { useModal } from "@/hooks/use-modal-store";
 import { Modal } from "@/components/ui/modal";
 import {
   Form,
@@ -24,8 +24,9 @@ const formSchema = z.object({
   name: z.string().min(1, "The name is required"),
 });
 
-export const StoreModal = () => {
-  const storeModal = useStoreModal();
+export const CreateStoreModal = () => {
+  const { onClose, isOpen, type } = useModal();
+  const isModalOpen = type === "createStore" && isOpen;
 
   const [loading, setLoading] = useState(false);
 
@@ -55,8 +56,8 @@ export const StoreModal = () => {
     <Modal
       title="Create Store"
       description="Add a new store to manage products and categories"
-      isOpen={storeModal.isOpen}
-      onClose={storeModal.onClose}>
+      isOpen={isModalOpen}
+      onClose={onClose}>
       <div>
         <div className="space-y-4 py-2 pb-4">
           <Form {...form}>
@@ -83,7 +84,7 @@ export const StoreModal = () => {
                   disabled={loading}
                   type="button"
                   variant="outline"
-                  onClick={storeModal.onClose}>
+                  onClick={onClose}>
                   Cancel
                 </Button>
                 <Button disabled={loading} type="submit">
