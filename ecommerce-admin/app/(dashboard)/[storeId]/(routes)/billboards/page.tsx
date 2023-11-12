@@ -1,3 +1,4 @@
+import { auth } from "@clerk/nextjs";
 import { BillboardClient } from "./components/client";
 
 interface BillboardsPageProps {

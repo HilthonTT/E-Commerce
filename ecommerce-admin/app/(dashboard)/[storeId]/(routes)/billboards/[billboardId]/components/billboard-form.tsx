@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Billboard, Store } from "@prisma/client";
 import { Trash } from "lucide-react";
+import { User } from "@clerk/nextjs/server";
 
 import { useModal } from "@/hooks/use-modal-store";
 
@@ -29,6 +30,7 @@ import { ImageUpload } from "@/components/ui/image-upload";
 interface BillboardFormProps {
   initialData: Billboard | null;
   store: Store;
+  token: string;
 }
 
 const formSchema = z.object({
@@ -38,7 +40,11 @@ const formSchema = z.object({
 
 type BillboardFormValues = z.infer<typeof formSchema>;
 
-export const BillboardForm = ({ initialData, store }: BillboardFormProps) => {
+export const BillboardForm = ({
+  initialData,
+  store,
+  token,
+}: BillboardFormProps) => {
   const params = useParams();
   const router = useRouter();
 
@@ -65,14 +71,14 @@ export const BillboardForm = ({ initialData, store }: BillboardFormProps) => {
 
       if (initialData) {
         await axios.patch(
-          `/api/billboards/${params.storeId}/${params.billboardId}`,
+          `/api/${params.storeId}/billboards/${params.billboardId}`,
           values
         );
       } else {
-        await axios.post(`/api/billboards/${params.storeId}`, values);
+        await axios.post(`/api/${params.storeId}/billboards`, values);
       }
-
       router.refresh();
+      router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
     } catch (error) {
       console.log(error);
