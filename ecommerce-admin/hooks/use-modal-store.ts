@@ -1,11 +1,10 @@
 import { create } from "zustand";
-import { Billboard, Store } from "@prisma/client";
 
 export type ModalType = "createStore" | "deleteStore" | "deleteBillboard";
 
 interface ModalData {
-  store?: Store;
-  billboard?: Billboard;
+  billboardId?: string;
+  storeId?: string;
 }
 
 interface ModalStore {

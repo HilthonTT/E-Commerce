@@ -15,7 +15,7 @@ export const DeleteStoreModal = () => {
   const [loading, setLoading] = useState(false);
 
   const { isOpen, onClose, type, data } = useModal();
-  const { store } = data;
+  const { storeId } = data;
 
   const isModalOpen = isOpen && type === "deleteStore";
 
@@ -23,7 +23,7 @@ export const DeleteStoreModal = () => {
     try {
       setLoading(true);
 
-      await axios.delete(`/api/stores/${store?.id}`);
+      await axios.delete(`/api/stores/${storeId}`);
 
       router.refresh();
       router.push("/");

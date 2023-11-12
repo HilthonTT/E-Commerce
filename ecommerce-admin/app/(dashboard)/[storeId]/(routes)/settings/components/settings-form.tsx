@@ -75,7 +75,7 @@ export const SettingsForm = ({ initialData }: SettingsFormProps) => {
           disabled={loading}
           variant="destructive"
           size="sm"
-          onClick={() => onOpen("deleteStore", { store: initialData })}>
+          onClick={() => onOpen("deleteStore", { storeId: initialData.id })}>
           <Trash className="h-4 w-4" />
         </Button>
       </div>

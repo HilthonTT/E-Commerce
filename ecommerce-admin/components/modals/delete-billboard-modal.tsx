@@ -15,7 +15,7 @@ export const DeleteBillboardModal = () => {
   const [loading, setLoading] = useState(false);
 
   const { isOpen, onClose, type, data } = useModal();
-  const { billboard, store } = data;
+  const { billboardId, storeId } = data;
 
   const isModalOpen = isOpen && type === "deleteBillboard";
 
@@ -23,12 +23,12 @@ export const DeleteBillboardModal = () => {
     try {
       setLoading(true);
 
-      await axios.delete(`/api/billboards/${store?.id}/${billboard?.id}`);
+      await axios.delete(`/api/${storeId}/billboards/${billboardId}`);
 
       router.refresh();
-      router.push("/");
-      onClose();
+      window.location.href = `/${storeId}/billboards`;
 
+      onClose();
       toast.success("Billboard deleted.");
     } catch (error) {
       console.log(error);

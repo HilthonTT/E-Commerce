@@ -7,9 +7,8 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Billboard, Store } from "@prisma/client";
+import { Billboard } from "@prisma/client";
 import { Trash } from "lucide-react";
-import { User } from "@clerk/nextjs/server";
 
 import { useModal } from "@/hooks/use-modal-store";
 
@@ -29,8 +28,6 @@ import { ImageUpload } from "@/components/ui/image-upload";
 
 interface BillboardFormProps {
   initialData: Billboard | null;
-  store: Store;
-  token: string;
 }
 
 const formSchema = z.object({
@@ -40,11 +37,7 @@ const formSchema = z.object({
 
 type BillboardFormValues = z.infer<typeof formSchema>;
 
-export const BillboardForm = ({
-  initialData,
-  store,
-  token,
-}: BillboardFormProps) => {
+export const BillboardForm = ({ initialData }: BillboardFormProps) => {
   const params = useParams();
   const router = useRouter();
 
@@ -78,7 +71,9 @@ export const BillboardForm = ({
         await axios.post(`/api/${params.storeId}/billboards`, values);
       }
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
+
+      window.location.href = `/${params.storeId}/billboards`;
+
       toast.success(toastMessage);
     } catch (error) {
       console.log(error);
@@ -99,8 +94,8 @@ export const BillboardForm = ({
             size="sm"
             onClick={() =>
               onOpen("deleteBillboard", {
-                billboard: initialData,
-                store,
+                billboardId: initialData.id,
+                storeId: params.storeId as string,
               })
             }>
             <Trash className="h-4 w-4" />
@@ -154,7 +149,6 @@ export const BillboardForm = ({
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };
