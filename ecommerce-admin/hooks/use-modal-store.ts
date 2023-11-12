@@ -1,10 +1,15 @@
 import { create } from "zustand";
 
-export type ModalType = "createStore" | "deleteStore" | "deleteBillboard";
+export type ModalType =
+  | "createStore"
+  | "deleteStore"
+  | "deleteBillboard"
+  | "deleteCategory";
 
 interface ModalData {
   billboardId?: string;
   storeId?: string;
+  categoryId?: string;
 }
 
 interface ModalStore {

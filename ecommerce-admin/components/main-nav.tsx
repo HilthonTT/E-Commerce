@@ -18,7 +18,11 @@ export const MainNav = ({
     },
     {
       href: `/${params.storeId}/billboards`,
-      label: "Billboard",
+      label: "Billboards",
+    },
+    {
+      href: `/${params.storeId}/categories`,
+      label: "Categories",
     },
     {
       href: `/${params.storeId}/settings`,

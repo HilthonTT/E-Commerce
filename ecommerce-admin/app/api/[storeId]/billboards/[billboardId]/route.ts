@@ -20,7 +20,7 @@ export async function GET(
 
     return NextResponse.json(billboard);
   } catch (error) {
-    console.log("[BILLBOARD_GET]", error);
+    console.log("[BILLBOARDS_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
@@ -51,7 +51,7 @@ export async function DELETE(
 
     return NextResponse.json(billboard);
   } catch (error) {
-    console.log("[BILLBOARD_DELETE]", error);
+    console.log("[BILLBOARDS_DELETE]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
@@ -80,12 +80,17 @@ export async function PATCH(
     }
 
     if (!params.billboardId) {
-      return new NextResponse("Billboard id is required", { status: 400 });
+      return new NextResponse("Billboard ID is required", { status: 400 });
+    }
+
+    if (!params.storeId) {
+      return new NextResponse("Store ID is required", { status: 400 });
     }
 
     const billboard = await prismadb.billboard.update({
       where: {
         id: params.billboardId,
+        storeId: params.storeId,
         store: {
           userId,
         },
@@ -98,7 +103,7 @@ export async function PATCH(
 
     return NextResponse.json(billboard);
   } catch (error) {
-    console.log("[BILLBOARD_PATCH]", error);
+    console.log("[BILLBOARDS_PATCH]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
