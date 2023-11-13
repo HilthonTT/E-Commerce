@@ -5,13 +5,15 @@ export type ModalType =
   | "deleteStore"
   | "deleteBillboard"
   | "deleteCategory"
-  | "deleteSize";
+  | "deleteSize"
+  | "deleteColor";
 
 interface ModalData {
   billboardId?: string;
   storeId?: string;
   categoryId?: string;
   sizeId?: string;
+  colorId?: string;
 }
 
 interface ModalStore {
