@@ -52,6 +52,7 @@ const formSchema = z.object({
   categoryId: z.string().min(1, "Category is required"),
   colorId: z.string().min(1, "Color is required"),
   sizeId: z.string().min(1, "Size is required"),
+
   isFeatured: z.boolean().default(false).optional(),
   isArchived: z.boolean().default(false).optional(),
 

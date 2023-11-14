@@ -123,7 +123,7 @@ export async function PATCH(
       return new NextResponse("Product ID is required", { status: 400 });
     }
 
-    const product = await prismadb.product.update({
+    await prismadb.product.update({
       where: {
         id: params.productId,
         store: {
@@ -140,16 +140,24 @@ export async function PATCH(
         sizeId,
         storeId: params.storeId,
         images: {
+          deleteMany: {},
+        },
+      },
+    });
+
+    const product = await prismadb.product.update({
+      where: {
+        id: params.productId,
+        store: {
+          userId,
+        },
+      },
+      data: {
+        images: {
           createMany: {
             data: [...images.map((image: { url: string }) => image)],
           },
         },
-      },
-      include: {
-        images: true,
-        category: true,
-        size: true,
-        color: true,
       },
     });
 
