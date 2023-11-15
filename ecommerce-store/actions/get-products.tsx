@@ -17,15 +17,18 @@ export const getProducts = async ({
   sizeId,
   isFeatured,
 }: Query): Promise<Product[]> => {
-  const url = qs.stringifyUrl({
-    url: URL,
-    query: {
-      colorId,
-      categoryId,
-      sizeId,
-      isFeatured,
+  const url = qs.stringifyUrl(
+    {
+      url: URL,
+      query: {
+        colorId,
+        categoryId,
+        sizeId,
+        isFeatured,
+      },
     },
-  });
+    { skipNull: true, skipEmptyString: true }
+  );
 
   const res = await fetch(url);
 
