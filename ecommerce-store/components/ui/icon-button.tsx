@@ -1,14 +1,17 @@
-"use client";
-
+import React from "react";
 import { cn } from "@/lib/utils";
 
 interface IconButtonProps {
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   icon: React.ReactElement;
 }
 
-export const IconButton = ({ onClick, className, icon }: IconButtonProps) => {
+export const IconButton: React.FC<IconButtonProps> = ({
+  onClick,
+  className,
+  icon,
+}: IconButtonProps) => {
   return (
     <button
       onClick={onClick}
